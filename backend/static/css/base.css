@@ -1,0 +1,116 @@
+/* Reset cơ bản */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: "Segoe UI", sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+}
+
+/* ===== NAVBAR ===== */
+.navbar {
+    background-color: #ffffff;
+    border-bottom: 1px solid #e5e7eb;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 0 24px;
+
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 64px;
+}
+
+/* Logo */
+.logo {
+    font-size: 20px;
+    font-weight: 700;
+    color: #0d9488;
+}
+
+/* Menu */
+.nav-links {
+    display: flex;
+    gap: 24px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #374151;
+    font-weight: 500;
+    position: relative;
+}
+
+.nav-links a::after {
+    content: "";
+    position: absolute;
+    width: 0;
+    height: 2px;
+    background-color: #0d9488;
+    left: 0;
+    bottom: -6px;
+    transition: width 0.3s;
+}
+
+.nav-links a:hover::after {
+    width: 100%;
+}
+
+/* Actions */
+.nav-actions {
+    display: flex;
+    gap: 12px;
+}
+
+.btn-outline {
+    padding: 6px 14px;
+    border: 1px solid #0d9488;
+    color: #0d9488;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-outline:hover {
+    background-color: #ecfdf5;
+}
+
+.btn-primary {
+    padding: 6px 14px;
+    background-color: #0d9488;
+    color: #ffffff;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background-color: #0f766e;
+}
+
+/* ===== MAIN ===== */
+.container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 24px;
+}
+
+/* Active menu */
+.nav-links a.active {
+    color: #0d9488;
+    font-weight: 600;
+}
+
+.nav-links a.active::after {
+    width: 100%;
+}
