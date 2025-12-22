@@ -1,4 +1,9 @@
+import { useEffect, useState } from "react";
+
+const API = "http://localhost:3000/api/group";
+
 export default function Group() {
+  const [group, setRooms] = useState([]);
   return (
     <>
       <h2>👥 Thông tin đoàn</h2>
@@ -6,3 +11,4 @@ export default function Group() {
     </>
   );
 }
+

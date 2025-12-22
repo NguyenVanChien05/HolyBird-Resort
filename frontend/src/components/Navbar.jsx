@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import "./Navbar.css";
+import "../styles/navbar.css";
 
 export default function Navbar() {
   return (
@@ -18,8 +18,8 @@ export default function Navbar() {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/services" className={({ isActive }) => isActive ? "active" : ""}>
-            Dịch vụ
+          <NavLink to="/booking" className={({ isActive }) => isActive ? "active" : ""}>
+            Đặt phòng
           </NavLink>
         </li>
         <li>
@@ -29,7 +29,7 @@ export default function Navbar() {
         </li>
         <li>
           <NavLink to="/login" className={({ isActive }) => isActive ? "active" : ""}>
-            Đăng nhập
+            Đăng xuất
           </NavLink>
         </li>
         <li>
