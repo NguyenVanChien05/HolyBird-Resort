@@ -36,6 +36,7 @@ CREATE TABLE GuestGroup (
 CREATE TABLE GuestGroup_Detail (
 	GroupID INT,
 	GuestID INT,
+	IsLeader VARCHAR(3) NOT NULL DEFAULT 'No' CHECK (IsLeader IN ('Yes','No')),
 	PRIMARY KEY (GroupID, GuestID),
 	FOREIGN KEY (GroupID) REFERENCES GuestGroup(GroupID) ON DELETE CASCADE,
 	FOREIGN KEY (GuestID) REFERENCES Guest(GuestID)

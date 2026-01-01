@@ -20,6 +20,7 @@ export default function Login({ setIsLogin }) {
       if (!res.ok) throw new Error();
       const data = await res.json();
       localStorage.setItem("token", data.token);
+      localStorage.setItem("user", JSON.stringify(data.user));
       setIsLogin(true);
       navigate("/");
     } catch {
@@ -36,8 +37,8 @@ export default function Login({ setIsLogin }) {
 
       <form className="login-box" onSubmit={handleSubmit}>
         <h2>Đăng nhập</h2>
-        <input placeholder="Username" onChange={e => setUsername(e.target.value)} />
-        <input type="password" placeholder="Password" onChange={e => setPassword(e.target.value)} />
+        <input placeholder="Username" required onChange={e => setUsername(e.target.value)} />
+        <input type="password" placeholder="Password" required onChange={e => setPassword(e.target.value)} />
         <button>Login</button>
       </form>
     </div>
