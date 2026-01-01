@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+.booking-container {
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #e0f2f1 0%, #e8f5e9 100%); /* Màu nền nhẹ nhàng */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.booking-card {
+  background: #ffffff;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+  width: 100%;
+  max-width: 750px;
+}
+
+.booking-header {
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.booking-header h1 {
+  color: #2d3436;
+  font-size: 28px;
+  font-weight: 700;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+}
+
+.booking-header p {
+  color: #636e72;
+  font-size: 15px;
+}
+
+.booking-form {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+/* Grid layout cho các nhóm input */
+.form-group-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* Chia 2 cột */
+  gap: 20px;
+}
+
+.form-item {
+  display: flex;
+  flex-direction: column;
+}
+
+.form-item label {
+  font-size: 14px;
+  font-weight: 600;
+  color: #2d3436;
+  margin-bottom: 8px;
+  margin-left: 4px;
+}
+
+.form-item input, 
+.form-item select {
+  padding: 12px 15px;
+  border: 2px solid #edeff2;
+  border-radius: 10px;
+  font-size: 15px;
+  color: #2d3436;
+  transition: all 0.3s ease;
+  background-color: #f9fbfd;
+}
+
+.form-item input:focus, 
+.form-item select:focus {
+  outline: none;
+  border-color: #00b894; /* Màu xanh thương hiệu */
+  background-color: #fff;
+  box-shadow: 0 0 0 4px rgba(0, 184, 148, 0.1);
+}
+
+/* Nút bấm */
+.submit-btn {
+  background: #00b894;
+  color: white;
+  padding: 16px;
+  border: none;
+  border-radius: 12px;
+  font-size: 16px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 10px;
+  box-shadow: 0 4px 15px rgba(0, 184, 148, 0.3);
+}
+
+.submit-btn:hover {
+  background: #00a383;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(0, 184, 148, 0.4);
+}
+
+.submit-btn:active {
+  transform: translateY(0);
+}
+
+.submit-btn:disabled {
+  background: #b2bec3;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Hiệu ứng loading đơn giản */
+.loader {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+}
+
+/* Mobile Responsive */
+@media (max-width: 600px) {
+  .form-group-grid {
+    grid-template-columns: 1fr; /* Chuyển về 1 cột trên điện thoại */
+  }
+  
+  .booking-card {
+    padding: 25px;
+  }
+  
+  .booking-header h1 {
+    font-size: 22px;
+  }
+}
