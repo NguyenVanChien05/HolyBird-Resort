@@ -1,6 +1,6 @@
-const BASE = "http://localhost:3000/api/login";
+const BASE = "http://localhost:3000/api/auth";
 
-export const login = async (username, password) => {
+export const auth = async (username, password) => {
   const res = await fetch(BASE, {
     method: "POST",
     headers: { "Content-Type": "application/json" },

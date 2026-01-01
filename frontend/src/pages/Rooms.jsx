@@ -1,8 +1,17 @@
 import { useEffect, useState } from "react";
-
-const API = "http://localhost:3000/api/room";
+import {
+  getRooms,
+  updateRoomStatus,
+  updateRoomPrice
+} from "../api/room.api";
+import { getRole } from "../utils/auth";
 
 export default function Rooms() {
+  /* ===== ROLE ===== */
+  const role = getRole();
+  const isAdmin = role === "Admin";
+  const isStaff = role === "Staff";
+
   const [rooms, setRooms] = useState([]);
 
   /* ===== FILTER ===== */
@@ -19,9 +28,13 @@ export default function Rooms() {
 
   /* ================= LOAD ROOMS ================= */
   const loadRooms = async () => {
-    const res = await fetch(API);
-    const data = await res.json();
-    setRooms(Array.isArray(data) ? data : []);
+    try {
+      const data = await getRooms();
+      setRooms(Array.isArray(data) ? data : []);
+    } catch (err) {
+      console.error(err);
+      alert("Không lấy được danh sách phòng");
+    }
   };
 
   useEffect(() => {
@@ -30,17 +43,18 @@ export default function Rooms() {
 
   /* ================= FILTER DATA ================= */
   const floors = [...new Set(rooms.map(r => r.FloorNumber))];
- const ranks = Array.from(
-  new Map(
-    rooms.map(r => [r.RankID, { id: r.RankID, name: r.RankName }])
-  ).values()
-);
 
-const types = Array.from(
-  new Map(
-    rooms.map(r => [r.TypeID, { id: r.TypeID, name: r.TypeName }])
-  ).values()
-);
+  const ranks = Array.from(
+    new Map(
+      rooms.map(r => [r.RankID, { id: r.RankID, name: r.RankName }])
+    ).values()
+  );
+
+  const types = Array.from(
+    new Map(
+      rooms.map(r => [r.TypeID, { id: r.TypeID, name: r.TypeName }])
+    ).values()
+  );
 
   const filteredRooms = rooms.filter(r =>
     (floor === "all" || r.FloorNumber === Number(floor)) &&
@@ -50,29 +64,21 @@ const types = Array.from(
 
   /* ================= UPDATE STATUS ================= */
   const updateStatus = async (roomId, status) => {
-    await fetch(`${API}/${roomId}/status`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ StatusPhysic: status })
-    });
+    await updateRoomStatus(roomId, status);
     loadRooms();
   };
 
-  /* ================= UPDATE PRICE (BY RANK + TYPE) ================= */
+  /* ================= UPDATE PRICE ================= */
   const submitPrice = async () => {
     if (!priceForm.RankID || !priceForm.TypeID || !priceForm.Price) {
       alert("Vui lòng nhập đầy đủ thông tin");
       return;
     }
 
-    await fetch(`${API}/price`, {
-      method: "PUT",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        RankID: Number(priceForm.RankID),
-        TypeID: Number(priceForm.TypeID),
-        Price: Number(priceForm.Price)
-      })
+    await updateRoomPrice({
+      RankID: Number(priceForm.RankID),
+      TypeID: Number(priceForm.TypeID),
+      Price: Number(priceForm.Price)
     });
 
     setPriceForm({ RankID: "", TypeID: "", Price: "" });
@@ -107,46 +113,54 @@ const types = Array.from(
         </select>
       </div>
 
-      {/* ===== PRICE FORM ===== */}
-      <div style={box}>
-        <strong>Cập nhật giá theo hạng + loại</strong>
+      {/* ===== PRICE FORM (ADMIN ONLY) ===== */}
+      {isAdmin && (
+        <div style={box}>
+          <strong>Cập nhật giá theo hạng + loại</strong>
 
-        <select
-          value={priceForm.RankID}
-          onChange={e => setPriceForm({ ...priceForm, RankID: e.target.value })}
-        >
-          <option value="">Chọn hạng</option>
-          {ranks.map(r => (
-            <option key={r.id} value={r.id}>{r.name}</option>
-          ))}
-        </select>
+          <select
+            value={priceForm.RankID}
+            onChange={e =>
+              setPriceForm({ ...priceForm, RankID: e.target.value })
+            }
+          >
+            <option value="">Chọn hạng</option>
+            {ranks.map(r => (
+              <option key={r.id} value={r.id}>{r.name}</option>
+            ))}
+          </select>
 
-        <select
-          value={priceForm.TypeID}
-          onChange={e => setPriceForm({ ...priceForm, TypeID: e.target.value })}
-        >
-          <option value="">Chọn loại</option>
-          {types.map(t => (
-            <option key={t.id} value={t.id}>{t.name}</option>
-          ))}
-        </select>
+          <select
+            value={priceForm.TypeID}
+            onChange={e =>
+              setPriceForm({ ...priceForm, TypeID: e.target.value })
+            }
+          >
+            <option value="">Chọn loại</option>
+            {types.map(t => (
+              <option key={t.id} value={t.id}>{t.name}</option>
+            ))}
+          </select>
 
-        <input
-          type="number"
-          placeholder="Giá mới"
-          value={priceForm.Price}
-          onChange={e => setPriceForm({ ...priceForm, Price: e.target.value })}
-        />
+          <input
+            type="number"
+            placeholder="Giá mới"
+            value={priceForm.Price}
+            onChange={e =>
+              setPriceForm({ ...priceForm, Price: e.target.value })
+            }
+          />
 
-        <button onClick={submitPrice}>Cập nhật giá</button>
-      </div>
+          <button onClick={submitPrice}>Cập nhật giá</button>
+        </div>
+      )}
 
       {/* ===== TABLE ===== */}
       <table border="1" cellPadding="8" width="100%">
         <thead>
           <tr>
-            <th>Phòng</th>
             <th>Tầng</th>
+            <th>Phòng</th>
             <th>Hạng</th>
             <th>Loại</th>
             <th>Trạng thái</th>
@@ -156,26 +170,29 @@ const types = Array.from(
         <tbody>
           {filteredRooms.map(r => (
             <tr key={r.RoomID}>
-              <td>{r.RoomNumber}</td>
               <td>{r.FloorNumber}</td>
+              <td>{r.RoomNumber}</td>
               <td>{r.RankName}</td>
               <td>{r.TypeName}</td>
 
-              {/* UPDATE STATUS INLINE */}
               <td>
-                <select
-                  value={r.StatusPhysic}
-                  onChange={e => updateStatus(r.RoomID, e.target.value)}
-                >
-                  <option value="Free">Free</option>
-                  <option value="Busy">Busy</option>
-                </select>
+                {(isAdmin || isStaff) ? (
+                  <select
+                    value={r.StatusPhysic}
+                    onChange={e =>
+                      updateStatus(r.RoomID, e.target.value)
+                    }
+                  >
+                    <option value="Free">Free</option>
+                    <option value="Busy">Busy</option>
+                  </select>
+                ) : (
+                  r.StatusPhysic
+                )}
               </td>
 
               <td>
-                {r.Price
-                  ? Number(r.Price).toLocaleString()
-                  : "Chưa có"}
+                {r.Price ? `${Number(r.Price).toLocaleString()} VND` : "Chưa có"}
               </td>
             </tr>
           ))}

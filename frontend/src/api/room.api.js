@@ -1,27 +1,64 @@
-const BASE = "http://localhost:3000/api/room";
+import { getToken, getRole } from "../utils/auth";
 
+const API = "http://localhost:3000/api/room";
+
+const authHeader = () => ({
+  Authorization: `Bearer ${getToken()}`
+});
+
+/* ===================== GET ROOMS ===================== */
 export const getRooms = async () => {
-  const res = await fetch(API_URL);
+  const res = await fetch(API, { headers: authHeader() });
+  if (!res.ok) throw new Error("Unauthorized");
   return res.json();
 };
 
-export const getRanks = async () =>
-  (await fetch(`${BASE}/meta/rank`)).json();
+/* ===================== UPDATE STATUS ===================== */
+export async function updateRoomStatus(roomId, status) {
+  const role = getRole();
+console.log("Role:", role);
 
-export const getTypes = async () =>
-  (await fetch(`${BASE}/meta/type`)).json();
+  if (!role || (role !== "Admin" && role !== "Staff")) {
+    throw new Error("Bạn không có quyền cập nhật trạng thái");
+  }
 
-export const updateStatus = (id, status) =>
-  fetch(`/api/rooms/${id}/status`, {
+  const res = await fetch(`${API}/${roomId}/status`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ StatusPhysic: status }),
+    headers: {
+      "Content-Type": "application/json",
+      ...authHeader()
+    },
+    body: JSON.stringify({ StatusPhysic: status })
   });
 
-export const updatePrice = (data) =>
-  fetch("/api/rooms/price", {
+  if (!res.ok) {
+    const errMsg = await res.json().then(r => r.message).catch(() => "Cập nhật trạng thái thất bại");
+    throw new Error(errMsg);
+  }
+
+  return await res.json();
+}
+
+/* ===================== UPDATE PRICE ===================== */
+export async function updateRoomPrice(data) {
+  const role = getRole();
+  if (!role || role !== "Admin") {
+    throw new Error("Bạn không có quyền cập nhật giá");
+  }
+
+  const res = await fetch(`${API}/price`, {
     method: "PUT",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify(data),
+    headers: {
+      "Content-Type": "application/json",
+      ...authHeader()
+    },
+    body: JSON.stringify(data)
   });
 
+  if (!res.ok) {
+    const errMsg = await res.json().then(r => r.message).catch(() => "Cập nhật giá thất bại");
+    throw new Error(errMsg);
+  }
+
+  return await res.json();
+}
