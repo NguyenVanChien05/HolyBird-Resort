@@ -3,7 +3,7 @@ const { pool, sql } = require('../config/db');
 // Lấy tất cả tài khoản
 const getAccounts = async (req, res) => {
     try {
-        const result = await pool.request().query('SELECT * FROM Account');
+        const result = await pool.request().query('SELECT * FROM v_AccountList');
         res.json(result.recordset);
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -16,7 +16,7 @@ const getAccountById = async (req, res) => {
         const { id } = req.params;
         const result = await pool.request()
             .input('id', sql.Int, id)
-            .query('SELECT * FROM Account WHERE AccountID = @id');
+            .execute('sp_getAccountID');
         if (result.recordset.length === 0)
             return res.status(404).json({ error: 'Không tìm thấy tài khoản' });
         res.json(result.recordset[0]);
@@ -33,7 +33,7 @@ const createAccount = async (req, res) => {
             .input('Username', sql.VarChar(50), Username)
             .input('Password', sql.VarChar(100), Password)
             .input('Role', sql.VarChar(10), Role)
-            .query('INSERT INTO Account (Username, Password, Role) VALUES (@Username, @Password, @Role)');
+            .execute('sp_createAccount');
         res.json({ success: true, message: 'Tạo tài khoản thành công' });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -50,7 +50,7 @@ const updateAccount = async (req, res) => {
             .input('Username', sql.VarChar(50), Username)
             .input('Password', sql.VarChar(100), Password)
             .input('Role', sql.VarChar(10), Role)
-            .query('UPDATE Account SET Username=@Username, Password=@Password, Role=@Role WHERE AccountID=@id');
+            .execute('sp_updateAccount');
         res.json({ success: true, message: 'Cập nhật thành công' });
     } catch (err) {
         res.status(500).json({ error: err.message });
@@ -63,7 +63,7 @@ const deleteAccount = async (req, res) => {
         const { id } = req.params;
         await pool.request()
             .input('id', sql.Int, id)
-            .query('DELETE FROM Account WHERE AccountID=@id');
+            .execute('sp_deleteAccount');
         res.json({ success: true, message: 'Xóa thành công' });
     } catch (err) {
         res.status(500).json({ error: err.message });

@@ -18,7 +18,7 @@ app.use('/api/guest', require('./routes/guest'));
 app.use('/api/room', require('./routes/room'));
 app.use('/api/login', require('./routes/login'));
 app.use('/api/group', require('./routes/group'));
-// app.use('/api/booking', require('./routes/booking'));
+app.use('/api/booking', require('./routes/booking'));
 
 const PORT = process.env.PORT || 3000;
 
