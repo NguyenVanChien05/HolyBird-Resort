@@ -6,6 +6,40 @@ const authHeader = () => ({
   Authorization: `Bearer ${getToken()}`
 });
 
+
+/* ===== RankRoom ===== */
+export const getRoomRanks = async () => {
+  const res = await fetch(`${API}/ranks`, { headers: authHeader() });
+  if (!res.ok) throw new Error("Không thể lấy danh sách hạng phòng");
+  return res.json();
+};
+
+/* ===== RoomType ===== */
+export const getRoomTypes = async () => {
+  const res = await fetch(`${API}/types`, { headers: authHeader() });
+  if (!res.ok) throw new Error("Không thể lấy danh sách loại phòng");
+  return res.json();
+};
+
+/* ===== Floors ===== */
+export const getFloors = async () => {
+  const res = await fetch(`${API}/floors`, { headers: authHeader() });
+  if (!res.ok) throw new Error("Không thể lấy danh sách tầng");
+  return res.json(); // [1,2,3,...]
+};
+
+/* ===== Price lookup ===== */
+export const getPrice = async (rankID, typeID) => {
+  const res = await fetch(`${API}/price?rankID=${rankID}&typeID=${typeID}`, {
+    headers: authHeader(),
+  });
+  if (!res.ok) {
+    const err = await res.json().catch(() => ({ message: "Không lấy được giá" }));
+    throw new Error(err.message || "Không lấy được giá");
+  }
+  return res.json(); // { price: 1200000 }
+};
+
 /* ===================== GET ROOMS ===================== */
 export const getRooms = async () => {
   const res = await fetch(API, { headers: authHeader() });

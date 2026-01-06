@@ -93,24 +93,28 @@ CREATE TABLE BookingDetail (
 	DetailID INT IDENTITY PRIMARY KEY,
 	TransactionID INT NOT NULL,
 	RoomID INT NOT NULL,
-	GuestID INT NOT NULL,
 	CheckInDate DATETIME NOT NULL,
 	CheckOutDate DATETIME NOT NULL,
 	CurrentPrice MONEY NOT NULL CHECK (CurrentPrice > 0),
 	LineTotal MONEY NOT NULL CHECK (LineTotal >= 0),
-	Status VARCHAR(20) NOT NULL CHECK (Status IN ('Booked','Available')),
+	Status VARCHAR(20) NOT NULL CHECK (Status IN ('Booked','CheckedIn','CheckedOut','Cancelled')),
 	CHECK (CheckInDate < CheckOutDate),
 	FOREIGN KEY (TransactionID) REFERENCES BookingTransaction(TransactionID) ON DELETE CASCADE,
-	FOREIGN KEY (RoomID) REFERENCES Room(RoomID),
-	FOREIGN KEY (GuestID) REFERENCES Guest(GuestID)
+	FOREIGN KEY (RoomID) REFERENCES Room(RoomID)
 )
 
+drop  TABLE KeyCard
 CREATE TABLE KeyCard (
 	CardID INT IDENTITY PRIMARY KEY,
 	DetailID INT NOT NULL,
-	IsActive BIT NOT NULL CHECK (IsActive IN (0,1)),
-	FOREIGN KEY (DetailID) REFERENCES BookingDetail(DetailID)
+	CardCode VARCHAR(50) UNIQUE NOT NULL,
+	IssueDate DATETIME NOT NULL DEFAULT GETDATE(),
+	ExpireDate DATETIME NOT NULL,
+	Status VARCHAR(20) NOT NULL
+		CHECK (Status IN ('Active','Expired','Lost','Disabled')),
+	FOREIGN KEY (DetailID) REFERENCES BookingDetail(DetailID) ON DELETE CASCADE
 )
+
 
 GO
 CREATE TRIGGER trg_NoOverlappingRoom
@@ -176,11 +180,11 @@ INSERT INTO GuestGroup (AccountID) VALUES
 (4),
 (5);
 
-INSERT INTO GuestGroup_Detail (GroupID, GuestID) VALUES
-(1, 1),
-(1, 2),
-(2, 3),
-(2, 4);
+INSERT INTO GuestGroup_Detail (GroupID, GuestID, IsLeader) VALUES
+(1, 1, 'Yes'),
+(1, 2, 'No'),
+(2, 3, 'Yes'),
+(2, 4, 'No');
 
 INSERT INTO RankRoom (RankName) VALUES
 (N'Thường'),
@@ -262,3 +266,4 @@ GROUP BY t.TypeName;
 -- trigger chống trùng phòng
 SELECT * FROM BookingDetail;
 
+select * from GuestGroup_Detail

@@ -22,23 +22,24 @@ export default function Navbar() {
 
         {user?.role === "Guest" && <>
           <li><NavLink to="/rooms" className={linkClass}>Danh sách phòng</NavLink></li>
-          <li><NavLink to="/booking" className={linkClass}>Đặt phòng</NavLink></li>
-          <li><NavLink to="/group" className={linkClass}>Đoàn của tôi</NavLink></li>
+          <li><NavLink to="/my-transactions" className={linkClass}>Giao dịch của tôi</NavLink></li>
+          <li><NavLink to="/my-group" className={linkClass}>Đoàn của tôi</NavLink></li>
         </>}
 
         {user?.role === "Staff" && <>
           <li><NavLink to="/rooms" className={linkClass}>Quản lý phòng</NavLink></li>
           <li><NavLink to="/group" className={linkClass}>Danh sách đoàn</NavLink></li>
-          <li><NavLink to="/booking" className={linkClass}>Quản lý đặt phòng</NavLink></li>
+          <li><NavLink to="/accounts" className={linkClass}>Tài khoản</NavLink></li>
+          <li><NavLink to="/transactions" className={linkClass}>Giao dịch</NavLink></li>
         </>}
 
         {user?.role === "Admin" && <>
           <li><NavLink to="/rooms" className={linkClass}>Quản lý phòng</NavLink></li>
           <li><NavLink to="/staff" className={linkClass}>Quản lý nhân viên</NavLink></li>
-          <li><NavLink to="/group" className={linkClass}>Danh sách đoàn</NavLink></li>
-          <li><NavLink to="/booking" className={linkClass}>Danh sách đặt phòng</NavLink></li>
+          <li><NavLink to="/transactions" className={linkClass}>Giao dịch</NavLink></li>
+          <li><NavLink to="/accounts" className={linkClass}>Tài khoản</NavLink></li>
+          <li><NavLink to="/group" className={linkClass}>Đoàn khách</NavLink></li>
         </>}
-
         <li><button onClick={logout} className="logout-btn">Đăng xuất</button></li>
         <span className="role">{user?.role}</span>
       </ul>

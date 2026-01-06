@@ -1,0 +1,143 @@
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;1,700&family=Inter:wght@300;400;600&display=swap');
+
+:root {
+  --primary-text: #1a1a1a;
+  --secondary-text: #666;
+  --accent-color: #c5a059; /* Vàng đồng */
+  --bg-color: #fcfcfc;
+  --shadow-light: rgba(0, 0, 0, 0.05);
+}
+
+.home-container-small-images {
+  font-family: 'Inter', sans-serif;
+  color: var(--primary-text);
+  background: var(--bg-color);
+  line-height: 1.6;
+}
+
+/* --- Hero Section --- */
+.hero-small-images {
+  text-align: center;
+  padding: 120px 20px 60px;
+  background-color: #fff;
+}
+
+.hero-content-small-images .subtitle-small-images {
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.85rem;
+  color: var(--accent-color);
+  font-weight: 600;
+  display: block;
+  margin-bottom: 20px;
+}
+
+.hero-content-small-images .title-small-images {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  line-height: 1.1;
+  font-weight: 400;
+  margin-bottom: 30px;
+}
+
+.hero-content-small-images .title-small-images span {
+  font-style: italic;
+  font-weight: 700;
+  color: #333; /* Hơi tối hơn để tạo điểm nhấn */
+}
+
+.hero-content-small-images .description-small-images {
+  max-width: 600px;
+  margin: 0 auto;
+  color: var(--secondary-text);
+  font-size: 1.05rem;
+  border-left: 2px solid var(--accent-color);
+  padding-left: 25px;
+  font-style: italic;
+}
+
+/* --- Image Grid Section --- */
+.image-grid-section {
+  padding: 60px 4%; /* Giảm padding để ảnh gần nhau hơn */
+}
+
+.image-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); /* 3 cột trên desktop, tự động xuống dòng */
+  gap: 15px; /* Khoảng cách giữa các ảnh nhỏ */
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+.grid-item {
+  position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* Tỷ lệ 1:1 cho ảnh vuông */
+  overflow: hidden;
+  background-color: #f0f0f0;
+  cursor: pointer;
+  box-shadow: 0 4px 15px var(--shadow-light); /* Shadow nhẹ nhàng */
+  transition: transform 0.3s ease-out, box-shadow 0.3s ease-out;
+}
+
+.grid-item img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.5s ease;
+}
+
+.grid-item:hover img {
+  transform: scale(1.08); /* Phóng to nhẹ khi hover */
+}
+
+.grid-item:hover {
+  transform: translateY(-5px); /* Nâng nhẹ lên khi hover */
+  box-shadow: 0 8px 25px var(--shadow-light);
+}
+
+/* Hiệu ứng Overlay khi hover */
+.grid-item .overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  padding: 20px;
+  background: linear-gradient(to top, rgba(0,0,0,0.7), rgba(0,0,0,0));
+  color: #fff;
+  font-weight: 600;
+  font-size: 1rem;
+  transform: translateY(100%); /* Ẩn overlay ban đầu */
+  transition: transform 0.4s ease-out;
+  opacity: 0;
+}
+
+.grid-item:hover .overlay {
+  transform: translateY(0); /* Hiện overlay khi hover */
+  opacity: 1;
+}
+
+
+/* Kích thước đặc biệt cho các ảnh lớn hơn trong lưới */
+@media (min-width: 768px) {
+  .image-grid {
+    grid-template-columns: repeat(3, 1fr); /* 3 cột cố định trên màn hình lớn hơn */
+  }
+  .grid-item-large {
+    grid-column: span 2; /* Ảnh lớn hơn chiếm 2 cột */
+    padding-bottom: 50%; /* Tỷ lệ 2:1 cho ảnh lớn (hoặc 1.5:1 tùy ý) */
+  }
+}
+
+/* --- Footer --- */
+.footer-small-images {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid #eee;
+  color: var(--secondary-text);
+  font-size: 0.8rem;
+  margin-top: 40px;
+}

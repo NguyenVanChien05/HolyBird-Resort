@@ -1,0 +1,170 @@
+/* ===== Page ===== */
+.groups-page {
+  padding: 30px 40px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #0369a1); /* gradient nền xanh tối + sáng */
+  min-height: 100vh;
+  color: #f4f1ed; /* chữ sáng hơn */
+}
+
+.groups-page h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #f4a261; /* vàng ấm nổi bật */
+  text-align: center;
+  border-bottom: 2px solid #e76f51; /* đỏ cam */
+  display: inline-block;
+  padding-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Filter & Search Container ===== */
+.groups-controls {
+  display: flex;
+  justify-content: space-between; /* search trái, nút phải */
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 15px;
+  background-color: #ffe5cc; /* nền vàng nhạt */
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* ===== Search & Filter ===== */
+.group-search,
+.group-filter {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #e0c097;
+  font-size: 1rem;
+  color: #5a3e36;
+  transition: all 0.2s ease-in-out;
+  min-width: 700px;
+  max-width: 900px;
+  margin-right: 10px;
+}
+
+.group-search:hover,
+.group-filter:hover {
+  border-color: #f4a261;
+  box-shadow: 0 0 4px rgba(244,162,97,0.4);
+}
+
+/* ===== Create Group Button ===== */
+.create-group-btn {
+  background-color: #e76f51; /* đỏ cam */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+  white-space: nowrap;
+}
+
+.create-group-btn:hover {
+  background-color: #d45d3f;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* ===== Group Card ===== */
+.group-card {
+  background-color: #fff5e6; /* vàng nhạt */
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 25px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+.group-card h3 {
+  margin-bottom: 10px;
+  color: #e76f51; /* đỏ cam */
+}
+
+.group-card p {
+  margin-bottom: 12px;
+  font-weight: 500;
+  color: #5a3e36;
+}
+
+/* ===== Guest Table ===== */
+.guest-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff5e6;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.guest-table th {
+  background: #f4a261; /* vàng cam */
+  color: #0f172a;
+  font-weight: 600;
+  text-align: left;
+  padding: 14px 18px;
+  letter-spacing: 0.5px;
+}
+
+.guest-table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid #e0c097;
+  color: #5a3e36;
+  vertical-align: middle;
+}
+
+.guest-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== Hover ===== */
+.guest-table tbody tr:hover {
+  background-color: #ffe5cc;
+  transition: background-color 0.25s ease-in-out;
+}
+
+/* ===== Select trong table ===== */
+.guest-table select {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #dcdcdc;
+  font-size: 0.95rem;
+  color: #5a3e36;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.guest-table select:hover {
+  border-color: #f4a261;
+  box-shadow: 0 0 4px rgba(244,162,97,0.3);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .groups-controls {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .group-search,
+  .group-filter,
+  .create-group-btn {
+    width: 100%;
+    margin-right: 0;
+    margin-bottom: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .groups-page {
+    padding: 20px 15px;
+  }
+
+  .guest-table th,
+  .guest-table td {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+}

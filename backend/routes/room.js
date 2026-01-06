@@ -3,6 +3,12 @@ const router = express.Router();
 const auth = require("../middlewares/auth");
 const controller = require("../controllers/roomController");
 
+
+router.get("/ranks", controller.getRanks);
+router.get("/types", controller.getTypes);
+router.get("/floors", controller.getFloors);
+router.get("/price", controller.getPrice);
+
 router.get("/", controller.getAllRooms);
 
 // chỉ admin mới update price

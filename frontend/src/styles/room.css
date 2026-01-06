@@ -1,0 +1,151 @@
+/* ===== Page ===== */
+.rooms-page {
+  padding: 30px 40px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #0369a1); /* gradient sáng + xanh */
+  min-height: 100vh;
+  color: #5a3e36; /* chữ ấm */
+}
+
+.rooms-page h2 {
+  font-size: 2rem;
+  margin-bottom: 30px;
+  color: #f4a261; /* vàng ấm nổi bật */
+  text-align: center;
+  border-bottom: 2px solid #e76f51; /* đỏ cam */
+  display: inline-block;
+  padding-bottom: 8px;
+  letter-spacing: 0.5px;
+}
+
+/* ===== Filter & Price Form ===== */
+.rooms-filters,
+.rooms-price-form {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  padding: 15px;
+  background-color: #ffe5cc; /* vàng nhạt ấm */
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12); /* nổi bật hơn */
+}
+
+.rooms-filters select,
+.rooms-price-form select,
+.rooms-price-form input {
+  padding: 10px 14px;
+  border-radius: 6px;
+  border: 1px solid #e0c097; /* nâu nhạt */
+  font-size: 1rem;
+  color: #5a3e36;
+  transition: all 0.2s ease-in-out;
+}
+
+.rooms-filters select:hover,
+.rooms-price-form select:hover,
+.rooms-price-form input:hover {
+  border-color: #f4a261;
+  box-shadow: 0 0 4px rgba(244,162,97,0.4);
+}
+
+.rooms-price-form button {
+  background-color: #e76f51; /* đỏ cam nổi bật */
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.rooms-price-form button:hover {
+  background-color: #d45d3f;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+}
+
+/* ===== Table Container ===== */
+.rooms-table-container {
+  overflow-x: auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+}
+
+/* ===== Table ===== */
+.rooms-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff5e6; /* vàng nhạt nền table */
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  overflow: hidden;
+}
+
+.rooms-table th {
+  background: #f4a261; /* vàng cam */
+  color: #0f172a;
+  font-weight: 600;
+  text-align: left;
+  padding: 14px 18px;
+  letter-spacing: 0.5px;
+}
+
+.rooms-table td {
+  padding: 12px 18px;
+  border-bottom: 1px solid #e0c097;
+  color: #5a3e36;
+  vertical-align: middle;
+}
+
+.rooms-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* ===== Hover ===== */
+.rooms-table tbody tr:hover {
+  background-color: #ffe5cc;
+  transition: background-color 0.25s ease-in-out;
+}
+
+/* ===== Select trong table ===== */
+.rooms-table select {
+  padding: 6px 8px;
+  border-radius: 4px;
+  border: 1px solid #dcdcdc;
+  font-size: 0.95rem;
+  color: #5a3e36;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.rooms-table select:hover {
+  border-color: #f4a261;
+  box-shadow: 0 0 4px rgba(244,162,97,0.3);
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .rooms-filters,
+  .rooms-price-form {
+    flex-direction: column;
+  }
+
+  .rooms-filters select,
+  .rooms-price-form select,
+  .rooms-price-form input {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .rooms-page {
+    padding: 20px 15px;
+  }
+
+  .rooms-table th,
+  .rooms-table td {
+    padding: 10px 8px;
+    font-size: 0.9rem;
+  }
+}

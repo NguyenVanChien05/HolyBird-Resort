@@ -1,0 +1,178 @@
+/* ===== Page ===== */
+.container {
+  padding: 30px 40px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #0369a1);
+  min-height: 100vh;
+  color: #5a3e36;
+}
+
+h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #f4a261;
+  text-align: center;
+  border-bottom: 2px solid #e76f51;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* ===== Form ===== */
+.form {
+  background-color: rgba(255, 229, 204, 0.9);
+  padding: 20px 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===== Grid layout ===== */
+.grid-2 {
+  display: flex;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.grid-4 {
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+}
+
+/* ===== Form groups ===== */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.form-group label {
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: #5a3e36;
+}
+
+.form-group input,
+.form-group select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0c097;
+  font-size: 1rem;
+  color: #5a3e36;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #f4a261;
+  box-shadow: 0 0 5px rgba(244,162,97,0.5);
+}
+
+/* ===== Guest cards ===== */
+.guest-card {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  background-color: #fff5e6;
+  padding: 12px 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  align-items: center;
+}
+
+.guest-card input,
+.guest-card select {
+  flex: 1;
+  padding: 6px 10px;
+  border-radius: 6px;
+  border: 1px solid #e0c097;
+  font-size: 0.95rem;
+  color: #5a3e36;
+}
+
+.guest-card select {
+  max-width: 120px;
+}
+
+/* ===== Buttons ===== */
+.btn-primary,
+.btn-secondary {
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.btn-primary {
+  background-color: #e76f51;
+  color: #fff;
+}
+
+.btn-primary:hover {
+  background-color: #d45d3f;
+}
+
+.btn-secondary {
+  background-color: #f4a261;
+  color: #fff;
+}
+
+.btn-secondary:hover {
+  background-color: #d9985c;
+}
+
+/* ===== Result ===== */
+.result {
+  background-color: rgba(255, 229, 204, 0.9);
+  padding: 15px 20px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.result h3 {
+  margin-bottom: 10px;
+  color: #e76f51;
+}
+
+/* ===== Error ===== */
+.error {
+  color: #d45d3f;
+  font-weight: 600;
+  margin-top: 10px;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .grid-2 {
+    flex-direction: column;
+  }
+
+  .guest-card {
+    flex-direction: column;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 20px 15px;
+  }
+
+  .form-group input,
+  .form-group select,
+  .guest-card input,
+  .guest-card select {
+    font-size: 0.9rem;
+  }
+
+  .btn-primary,
+  .btn-secondary {
+    width: 100%;
+    text-align: center;
+  }
+}

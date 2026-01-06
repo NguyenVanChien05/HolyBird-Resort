@@ -18,6 +18,7 @@ BEGIN
         rr.RankName,
         rt.TypeID,
         rt.TypeName,
+		rt.Capacity,
         pr.Price
     FROM Room r
     JOIN RankRoom rr ON r.RankID = rr.RankID

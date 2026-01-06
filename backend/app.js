@@ -12,12 +12,12 @@ app.use(express.json());
 
 /* routes API */
 
-app.use('/api/account', require('./routes/account'));
+app.use('/api/accounts', require('./routes/account'));
 app.use('/api/staff', require('./routes/staff'));
-app.use('/api/guest', require('./routes/guest'));
 app.use("/api/room", auth(), require("./routes/room"));
 app.use('/api/login', require('./routes/login'));
-app.use('/api/group', require('./routes/group'));
+app.use('/api/groups', require('./routes/group'));
+app.use('/api/transactions', require('./routes/transaction'));
 // app.use('/api/booking', require('./routes/booking'));
 
 const PORT = process.env.PORT || 3000;
