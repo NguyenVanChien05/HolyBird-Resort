@@ -19,12 +19,9 @@ exports.getGuestsByGroup = async (req, res) => {
 
 exports.getAllGroupsWithGuests = async (req, res) => {
   try {
-    console.log("Fetching groups...");
-
     const result = await pool.request()
     .execute("GetAllGroupsWithGuests");
     
-    console.log("Result:", result.recordset);
     res.status(200).json(result.recordset);
   } catch (error) {
     console.error("Lỗi khi lấy tất cả nhóm:", error);

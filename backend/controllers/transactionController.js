@@ -4,9 +4,6 @@ const { sql, pool } = require("../config/db");
  * GUEST - xem transaction của đoàn mình
  */
 exports.getMyTransaction = async (req, res) => {
-  console.log(">>> getMyTransaction HIT <<<");
-  console.log("JWT user:", req.user);
-
   try {
     if (!pool.connected) await pool.connect();
 
@@ -15,9 +12,6 @@ exports.getMyTransaction = async (req, res) => {
     const result = await pool.request()
       .input("AccountID", sql.Int, accountId)
       .execute("sp_GetMyTransaction");
-
-    console.log("accountId:", accountId);
-    console.log("DB result:", result.recordset);
 
     return res.status(200).json(result.recordset);
 

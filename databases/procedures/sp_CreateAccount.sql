@@ -1,4 +1,4 @@
-﻿USE HolyBirdResort;
+﻿USE Holybird_Resort_db;
 GO
 
 CREATE PROCEDURE sp_CheckStaffPermission

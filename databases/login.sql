@@ -1,17 +1,21 @@
-USE HolybirdResort;
+USE master;
 GO
 
-CREATE LOGIN your_username
-WITH PASSWORD = 'your_password',
+CREATE LOGIN hb_resort_login
+WITH PASSWORD = 'HbResort@2026',
 CHECK_POLICY = OFF;
 GO
 
-CREATE USER your_username FOR LOGIN your_username;
+USE Holybird_Resort_db;
 GO
 
-ALTER ROLE db_datareader ADD MEMBER your_username;
-ALTER ROLE db_datawriter ADD MEMBER your_username;
+CREATE USER hb_resort_user
+FOR LOGIN hb_resort_login;
 GO
 
+ALTER ROLE db_datareader ADD MEMBER hb_resort_user;
+ALTER ROLE db_datawriter ADD MEMBER hb_resort_user;
+GO
 
-
+GRANT EXECUTE TO hb_resort_user;
+GO

@@ -11,6 +11,7 @@ export default function Login({ setIsLogin }) {
 
   const handleSubmit = async e => {
     e.preventDefault();
+    console.log("Submitting", { username, password });
     try {
       const res = await fetch(API, {
         method: "POST",
@@ -24,6 +25,7 @@ export default function Login({ setIsLogin }) {
       setIsLogin(true);
       navigate("/");
     } catch {
+      console.log("Login failed");
       alert("Sai tài khoản hoặc mật khẩu");
     }
   };

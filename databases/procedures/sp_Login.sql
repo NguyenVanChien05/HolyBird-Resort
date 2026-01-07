@@ -1,3 +1,6 @@
+USE Holybird_Resort_db
+GO
+
 CREATE PROCEDURE sp_Login
     @Username VARCHAR(50)
 AS

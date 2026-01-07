@@ -1,9 +1,7 @@
-USE HolyBirdResort
+USE Holybird_Resort_db
 GO
 
-/* =========================
-   GET ALL ROOMS
-========================= */
+
 CREATE OR ALTER PROCEDURE sp_GetAllRooms
 AS
 BEGIN
@@ -30,9 +28,7 @@ BEGIN
 END
 GO
 
-/* =========================
-   UPDATE ROOM STATUS
-========================= */
+
 CREATE PROCEDURE sp_UpdateRoomStatus
     @RoomID INT,
     @StatusPhysic VARCHAR(20),
@@ -54,9 +50,6 @@ END;
 GO
 
 
-/* =========================
-   UPDATE PRICE BY RANK + TYPE
-========================= */
 CREATE PROCEDURE sp_UpdateRoomPrice
     @RankID INT,
     @TypeID INT,

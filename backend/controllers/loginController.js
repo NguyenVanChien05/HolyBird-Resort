@@ -3,20 +3,19 @@ const { pool, sql } = require("../config/db");
 
 exports.login = async (req, res) => {
   const { username, password } = req.body;
-
   try {
     const rs = await pool.request()
       .input("Username", sql.VarChar, username)
       .execute("sp_Login");
 
     if (!rs.recordset.length)
-      return res.status(401).json({ message: "Sai tài khoản hoặc mật khẩu" });
+      return res.status(401).json({ message: "Sai tài khoản" });
 
     const acc = rs.recordset[0];
 
     // ✅ SO PASSWORD TẠI JS (đúng chuẩn)
     if (acc.Password !== password)
-      return res.status(401).json({ message: "Sai tài khoản hoặc mật khẩu" });
+      return res.status(401).json({ message: "Sai tài hoặc mật khẩu" });
 
     const token = jwt.sign(
       {
