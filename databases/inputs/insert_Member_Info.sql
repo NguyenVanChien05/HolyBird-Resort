@@ -2,32 +2,23 @@ USE Holybird_Resort_db;
 GO
 
 
-CREATE TABLE Account_Staging (
-    Username VARCHAR(50),
-    Password VARCHAR(100),
-    Role VARCHAR(10)
-);
+/* REMOVED BY SCRIPT */
 
+/* 
 BULK INSERT Account_Staging
-FROM 'D:\Holybird_Resort_Project\HolyBird-Resort\databases\data\Account.csv'
+FROM 'c:\Users\NITRO\Documents\HQTCSDL\HolyBird-Resort\databases\data\Account.csv'
 WITH (
     FIELDTERMINATOR = ',',
     ROWTERMINATOR = '\n',
     FIRSTROW = 2
-);
+)
+ DELETED_BULK_INSERT */;
 
-INSERT INTO Account (Username, Password, Role)
-SELECT Username, Password, Role
-FROM Account_Staging;
-
+/* REMOVED BY SCRIPT */
 
 
-CREATE TABLE Staff_Staging (
-	firstname NVARCHAR(50),
-	middlename NVARCHAR(50),
-	lastname NVARCHAR(50),
-    StaffName NVARCHAR(100)
-);
+
+/* REMOVED BY SCRIPT */
 
 WITH StaffAccounts AS (
     SELECT AccountID, ROW_NUMBER() OVER (ORDER BY AccountID) AS rn
@@ -45,13 +36,7 @@ JOIN StaffAccounts a
     ON s.rn = a.rn;
 
 
-CREATE TABLE Guest_Staging (
-	first_name NVARCHAR(50),
-	middle_name NVARCHAR(50),
-	last_name NVARCHAR(50),
-    FullName NVARCHAR(100),
-    CMND VARCHAR(9)
-);
+/* REMOVED BY SCRIPT */
 
 INSERT INTO Guest (FullName, CMND)
 SELECT 
@@ -61,14 +46,20 @@ FROM Guest_Staging
 ORDER BY NEWID();
 GO
 
-DROP TABLE Account_Staging;
-DROP TABLE Staff_Staging;
-DROP TABLE Guest_Staging;
+/* REMOVED BY SCRIPT */
+/* REMOVED BY SCRIPT */
+/* REMOVED BY SCRIPT */
 
 
 
 DECLARE @GroupID INT;
 DECLARE @GroupSize INT;
+
+/* Populate GuestGroup from Guest Accounts */
+INSERT INTO GuestGroup (AccountID)
+SELECT AccountID
+FROM Account
+WHERE Role = 'Guest';
 
 DECLARE group_cursor CURSOR FOR
 SELECT GroupID
@@ -80,7 +71,7 @@ FETCH NEXT FROM group_cursor INTO @GroupID;
 
 WHILE @@FETCH_STATUS = 0
 BEGIN
-    -- Random size 1–10
+    -- Random size 1ï¿½10
     SET @GroupSize = FLOOR(RAND(CHECKSUM(NEWID())) * 10) + 1;
 
     ;WITH NextGuests AS (
@@ -99,7 +90,7 @@ BEGIN
     SELECT
         @GroupID,
         GuestID,
-        CASE WHEN rn = 1 THEN 'Yes' ELSE 'No' END
+        CASE WHEN rn = 1 THEN 1 ELSE 0 END
     FROM NextGuests;
 
     FETCH NEXT FROM group_cursor INTO @GroupID;
