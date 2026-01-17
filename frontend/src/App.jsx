@@ -38,7 +38,7 @@ export default function App() {
         <Route path="/group/:groupID" element={<LoginRoute><MyGroup /></LoginRoute>} />
         <Route path="/create-group" element={<LoginRoute><CreateGroup /></LoginRoute>} />
         <Route path="/accounts" element={<LoginRoute><AccountList /></LoginRoute>} />
-        <Route path="/demo" element={<DemoConcurrency />} />
+        <Route path="/demoLostUpdate" element={<DemoConcurrency />} />
       </Routes>
     </>
   );

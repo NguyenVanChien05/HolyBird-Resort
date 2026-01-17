@@ -1,25 +1,24 @@
 ﻿USE Holybird_Resort_db;
 GO
 
-CREATE PROCEDURE sp_CheckStaffPermission
+CREATE OR ALTER PROCEDURE sp_CheckStaffPermission
 (
     @StaffAccountID INT
 )
 AS
 BEGIN
     IF NOT EXISTS (
-        SELECT 1 FROM Account
         WHERE AccountID = @StaffAccountID
-          AND Role = 'Staff'
+          AND Role IN ('Staff', 'Admin')
     )
     BEGIN
-        RAISERROR (N'Chỉ Staff mới có quyền tạo tài khoản đoàn', 16, 1);
+        RAISERROR (N'Chỉ Staff hoặc Admin mới có quyền tạo tài khoản đoàn', 16, 1);
     END
 END
 GO
 
 
-CREATE PROCEDURE sp_GenerateGuestAccount
+CREATE OR ALTER PROCEDURE sp_GenerateGuestAccount
 (
     @Username VARCHAR(50) OUTPUT,
     @Password VARCHAR(100) OUTPUT,
@@ -47,7 +46,7 @@ GO
 
 
 
-CREATE PROCEDURE sp_CreateGuestGroup
+CREATE OR ALTER PROCEDURE sp_CreateGuestGroup
 (
     @AccountID INT,
     @GroupID INT OUTPUT
@@ -61,7 +60,7 @@ BEGIN
 END
 GO
 
-CREATE PROCEDURE sp_AddGuestToGroup
+CREATE OR ALTER PROCEDURE sp_AddGuestToGroup
 (
     @GroupID INT,
     @FullName NVARCHAR(100),
@@ -78,7 +77,7 @@ BEGIN
     SET @GuestID = SCOPE_IDENTITY();
 
     INSERT INTO GuestGroup_Detail (GroupID, GuestID, IsLeader)
-    VALUES (@GroupID, @GuestID, @IsLeader);
+    VALUES (@GroupID, @GuestID, CASE WHEN @IsLeader = 'Yes' THEN 1 ELSE 0 END);
 END
 GO
 
@@ -91,7 +90,7 @@ CREATE TYPE TVP_GuestList AS TABLE (
 GO
 
 
-CREATE PROCEDURE sp_AddGuestListToGroup
+CREATE OR ALTER PROCEDURE sp_AddGuestListToGroup
 (
     @GroupID INT,
     @GuestList TVP_GuestList READONLY
@@ -126,7 +125,7 @@ GO
 
 
 
-CREATE PROCEDURE sp_CreateGuestGroupAccount
+CREATE OR ALTER PROCEDURE sp_CreateGuestGroupAccount
 (
     @StaffAccountID INT,
     @GuestList TVP_GuestList READONLY
