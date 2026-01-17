@@ -21,7 +21,8 @@ exports.login = async (req, res) => {
       {
         accountId: acc.AccountID,
         role: acc.Role,
-        groupId: acc.GroupID || null
+        groupId: acc.GroupID || null,
+        staffId: acc.StaffID || null
       },
       process.env.JWT_SECRET,
       { expiresIn: "1d" }

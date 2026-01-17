@@ -12,6 +12,7 @@ CREATE TABLE Account (
     Role VARCHAR(10) NOT NULL CHECK (Role IN ('Admin','Staff','Guest'))
 );
 
+
 CREATE TABLE Staff (
     StaffID INT IDENTITY PRIMARY KEY,
     StaffName NVARCHAR(100) NOT NULL CHECK (LEN(StaffName) >= 3),
@@ -34,7 +35,7 @@ CREATE TABLE GuestGroup (
 CREATE TABLE GuestGroup_Detail (
     GroupID INT,
     GuestID INT,
-    IsLeader BIT NOT NULL DEFAULT 0,
+    IsLeader VARCHAR(3) NOT NULL DEFAULT 'No' CHECK (IsLeader IN ('Yes','No')),
     PRIMARY KEY (GroupID, GuestID),
     FOREIGN KEY (GroupID) REFERENCES GuestGroup(GroupID) ON DELETE CASCADE,
     FOREIGN KEY (GuestID) REFERENCES Guest(GuestID)
@@ -44,11 +45,32 @@ CREATE TABLE RankRoom (
     RankID INT IDENTITY PRIMARY KEY,
     RankName NVARCHAR(50) NOT NULL UNIQUE CHECK (LEN(RankName) >= 3)
 );
+ALTER TABLE RankRoom
+ADD CONSTRAINT CK_RankRoom_RankName
+CHECK (
+    RankName IN (
+        N'Thường',
+        N'Trung Bình',
+        N'Sang',
+        N'Rất Sang',
+        N'VIP'
+    )
+);
 
 CREATE TABLE RoomType (
     TypeID INT IDENTITY PRIMARY KEY,
     TypeName NVARCHAR(50) NOT NULL UNIQUE CHECK (LEN(TypeName) >= 3),
     Capacity INT NOT NULL CHECK (Capacity > 0)
+);
+ALTER TABLE RoomType
+ADD CONSTRAINT CK_RoomType_TypeName
+CHECK (
+    TypeName IN (
+        N'1 Giường Đôi',
+        N'1 Giường Đơn',
+        N'2 Giường Đôi',
+        N'2 Giường Đơn'
+    )
 );
 
 CREATE TABLE PriceRoom (
@@ -104,7 +126,19 @@ CREATE TABLE BookingDetail (
 );
 
 
-CREATE INDEX IX_BookingDetail_Guest ON BookingDetail(GuestID);
+CREATE TABLE Compensation (
+    CompensationID INT IDENTITY PRIMARY KEY,
+    TransactionID INT NOT NULL,
+    Compensation_Amount MONEY NOT NULL CHECK (Compensation_Amount > 0),
+    Reason NVARCHAR(255),
+    CreatedAt DATETIME DEFAULT GETDATE(),
+    CreatedBy INT,
+    Status NVARCHAR(20) DEFAULT 'Active',
+	CONSTRAINT FK_Compensation_Transaction
+        FOREIGN KEY (TransactionID) REFERENCES BookingTransaction(TransactionID),
+	CONSTRAINT FK_Compensation_Staff
+        FOREIGN KEY (CreatedBy) REFERENCES Staff(StaffID)
+);
 
 CREATE TABLE KeyCard (
     CardID INT IDENTITY PRIMARY KEY,

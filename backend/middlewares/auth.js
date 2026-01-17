@@ -14,7 +14,12 @@ module.exports = (...roles) => {
       const decoded = jwt.verify(token, process.env.JWT_SECRET);
       // decoded = { accountId, role, groupId }
 
-      req.user = decoded;
+       req.user = {
+        accountId: decoded.accountId,
+        role: decoded.role,
+        groupId: decoded.groupId || null,
+        staffId: decoded.staffId || null
+      };
 
       // 👉 nếu có truyền role thì mới check
       if (roles.length && !roles.includes(decoded.role)) {

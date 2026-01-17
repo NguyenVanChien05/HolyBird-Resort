@@ -29,11 +29,20 @@ export const assignGuestsToRoom = (transactionID, guests) =>
 // Xóa chi tiết booking
 export const deleteEmptyBookedRooms = (transactionID) =>
   api.post("/delete-empty-booked-rooms", { transactionID });
+// Thêm bồi thường
+export const addCompensation = (transactionID, data) =>
+  api.post(`/${transactionID}/compensation`, data);
+
+export const getCompensations = (transactionID) =>
+  api.get(`/${transactionID}/compensations`);
+
+
+
 // ===== KeyCard / Booking =====
 
 // Check-in và cấp KeyCard
 export const checkInDetail = (detailID) =>
-  api.post(`/${detailID}/checkin`);
+  api.post(`/${detailID}/checkin`, { details: [detailID] });
 
 // Check-out và vô hiệu KeyCard
 export const checkOutDetail = (detailID) =>
@@ -42,5 +51,6 @@ export const checkOutDetail = (detailID) =>
 // Hủy booking detail
 export const deleteBookingDetail = (detailID) =>
   api.post(`/${detailID}/delete`);
+
 
 export default api;
