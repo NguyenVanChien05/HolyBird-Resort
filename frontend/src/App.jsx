@@ -15,6 +15,7 @@ import TransactionList from "./pages/TransactionList";
 import TransactionDetail from "./pages/TransactionDetail";
 import CreateTransDetail from "./pages/CreateTransDetail";
 import AssignGuests from "./pages/AssignGuest";
+import DemoConcurrency from "./pages/DemoConcurrency";
 
 export default function App() {
   const [isLogin, setIsLogin] = useState(!!localStorage.getItem("token"));
@@ -37,6 +38,7 @@ export default function App() {
         <Route path="/group/:groupID" element={<LoginRoute><MyGroup /></LoginRoute>} />
         <Route path="/create-group" element={<LoginRoute><CreateGroup /></LoginRoute>} />
         <Route path="/accounts" element={<LoginRoute><AccountList /></LoginRoute>} />
+        <Route path="/demoLostUpdate" element={<DemoConcurrency />} />
       </Routes>
     </>
   );

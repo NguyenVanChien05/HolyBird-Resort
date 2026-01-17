@@ -31,6 +31,7 @@ export default function Navbar() {
           <li><NavLink to="/group" className={linkClass}>Danh sách đoàn</NavLink></li>
           <li><NavLink to="/accounts" className={linkClass}>Tài khoản</NavLink></li>
           <li><NavLink to="/transactions" className={linkClass}>Giao dịch</NavLink></li>
+          <li><NavLink to="/demoLostUpdate" className={linkClass}>Demo Lost Update</NavLink></li>
         </>}
 
         {user?.role === "Admin" && <>
@@ -39,6 +40,7 @@ export default function Navbar() {
           <li><NavLink to="/transactions" className={linkClass}>Giao dịch</NavLink></li>
           <li><NavLink to="/accounts" className={linkClass}>Tài khoản</NavLink></li>
           <li><NavLink to="/group" className={linkClass}>Đoàn khách</NavLink></li>
+          <li><NavLink to="/demoLostUpdate" className={linkClass}>Demo Lost Update</NavLink></li>
         </>}
         <li><button onClick={logout} className="logout-btn">Đăng xuất</button></li>
         <span className="role">{user?.role}</span>
