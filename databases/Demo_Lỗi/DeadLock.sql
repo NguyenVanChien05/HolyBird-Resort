@@ -1,4 +1,33 @@
-﻿
+﻿CREATE PROCEDURE sp_UpdateTransactionTotalPrice
+    @TransactionID INT
+AS
+BEGIN
+    SET NOCOUNT ON;
+
+    UPDATE BookingTransaction
+    SET TotalPrice =
+    (
+        -- Tiền phòng
+        ISNULL((
+            SELECT SUM(LineTotal)
+            FROM BookingDetail
+            WHERE TransactionID = @TransactionID
+              AND Status <> 'Cancelled'
+        ), 0)
+        +
+        -- Tiền bồi thường
+        ISNULL((
+            SELECT SUM(Compensation_Amount)
+            FROM Compensation
+            WHERE TransactionID = @TransactionID
+              AND Status = 'Active'
+        ), 0)
+    )
+    WHERE TransactionID = @TransactionID;
+END;
+GO
+
+
 --------------------------------
 -- Thêm bồi thường
 ----------------------------------
@@ -16,9 +45,9 @@ BEGIN
     BEGIN TRY
         BEGIN TRAN;
 
-		--SELECT 1
-		--FROM BookingTransaction WITH (UPDLOCK)
-		--WHERE TransactionID = @TransactionID;
+		SELECT 1
+		FROM BookingTransaction WITH (UPDLOCK, HOLDLOCK)
+		WHERE TransactionID = @TransactionID;
 
         IF @Compensation_Amount <= 0
             THROW 50010, N'Số tiền bồi thường phải > 0', 1;
@@ -75,9 +104,9 @@ BEGIN
     BEGIN TRY
         BEGIN TRAN;
 
-		--SELECT 1
-        --FROM BookingTransaction WITH (UPDLOCK, HOLDLOCK)
-        --WHERE TransactionID = @TransactionID;
+		SELECT 1
+        FROM BookingTransaction WITH (UPDLOCK, HOLDLOCK)
+        WHERE TransactionID = @TransactionID;
 
 
         DECLARE @RequestID INT, @RankID INT, @TypeID INT, @Floor INT,

@@ -8,6 +8,7 @@ CREATE OR ALTER PROCEDURE sp_CheckStaffPermission
 AS
 BEGIN
     IF NOT EXISTS (
+		SELECT 1 FROM Account
         WHERE AccountID = @StaffAccountID
           AND Role IN ('Staff', 'Admin')
     )
@@ -77,7 +78,7 @@ BEGIN
     SET @GuestID = SCOPE_IDENTITY();
 
     INSERT INTO GuestGroup_Detail (GroupID, GuestID, IsLeader)
-    VALUES (@GroupID, @GuestID, CASE WHEN @IsLeader = 'Yes' THEN 1 ELSE 0 END);
+    VALUES (@GroupID, @GuestID, @IsLeader);
 END
 GO
 
