@@ -1,4 +1,4 @@
-const { sql, pool } = require("../config/db");
+const { sql, pool } = require("../config/db.js");
 
 /**
  * GUEST - xem transaction của đoàn mình
@@ -100,8 +100,8 @@ exports.createTransDetail = async (req, res) => {
       .input("TransactionID", sql.Int, transactionID)
       .input("Requests", tvp)
       .execute("sp_CreateBookingDetail");
-/* ===== 2. AUTO ASSIGN ROOM ===== */
 
+/* ===== 2. AUTO ASSIGN ROOM ===== */
       await pool.request()
         .input("TransactionID", sql.Int, transactionID)
         .execute("sp_AutoAssignRoom");
@@ -126,6 +126,9 @@ exports.createTransDetail = async (req, res) => {
     });
 
   } catch (err) {
+    if (err.number === 50002) {
+        return res.status(400).json({ message: err.message });
+    }
     console.error("createTransDetail error:", err);
     res.status(500).json({
       message: err.message
@@ -192,41 +195,48 @@ exports.deleteEmptyBookedRooms = async (req, res) => {
 
 
 // ===== Check-in & issue KeyCard =====
+
 exports.checkIn = async (req, res) => {
   const { detailID } = req.params;
 
-  if (!detailID) {
-    return res.status(400).json({ message: "DetailID is required" });
-  }
+  console.log("👉 Check-in DetailID:", detailID);
 
   try {
-    // 1️⃣ Call sp_CheckIn và lấy KeyCard vừa gán
-    const result = await pool.request()
+    if (!pool.connected) await pool.connect();
+
+    /* 1️⃣ Thực thi stored procedure */
+    await pool.request()
       .input("DetailID", sql.Int, detailID)
       .execute("sp_CheckIn");
 
-    // Backend controller
-    const keyCards = result.recordset.map(kc => ({
-      ...kc,
-      IssueDate: kc.IssueDate ? kc.IssueDate.toISOString().slice(0,10) : null,
-      ExpireDate: kc.ExpireDate ? (kc.ExpireDate instanceof Date ? kc.ExpireDate.toISOString().slice(0,10) : kc.ExpireDate) : null,
-    }));
+    /* 2️⃣ Lấy lại KeyCard vừa được kích hoạt */
+    const keyCardResult = await pool.request()
+      .input("DetailID", sql.Int, detailID)
+      .query(`
+        SELECT KC.*
+        FROM KeyCard KC
+        WHERE KC.DetailID = @DetailID
+      `);
 
-    if (!keyCards || keyCards.length === 0) {
-      return res.status(400).json({ message: "No available KeyCard to assign" });
-    }
-    
-    console.log("Issued KeyCard:", keyCards);
-    // 3️⃣ Trả về thông tin KeyCard cho frontend
-    res.status(200).json({ 
-      message: "Checked in successfully and KeyCard issued",
-      keyCards
+    console.log("✅ KeyCards:", keyCardResult.recordset);
+
+    return res.status(200).json({
+      message: "Check-in successful",
+      keyCards: keyCardResult.recordset || []
     });
+
   } catch (err) {
-    console.error("Check-in error:", err);
-    res.status(500).json({ message: err.message || "Server error" });
+    console.error("❌ Check-in error:", err);
+
+    /* lỗi RAISERROR từ SQL */
+    if (err.message?.includes("BookingDetail không tồn tại")) {
+      return res.status(400).json({ message: err.message });
+    }
+
+    return res.status(500).json({ message: "Check-in failed" });
   }
 };
+
 
 // ===== Check-out & expire KeyCard =====
 exports.checkOut = async (req, res) => {
@@ -277,5 +287,62 @@ exports.deleteBookingDetail = async (req, res) => {
   } catch (err) {
     console.error("Delete booking error:", err);
     res.status(500).json({ message: err.message || "Server error" });
+  }
+};
+
+exports.addCompensation = async (req, res) => {
+  const { transactionID } = req.params;
+  const { staffId, role } = req.user;
+  const { amount, reason } = req.body;
+
+  if (role !== "Staff") {
+    return res.status(403).json({ message: "Chỉ nhân viên mới được thêm bồi thường" });
+  }
+  if (!transactionID) {
+    return res.status(400).json({ message: "TransactionID is required" });
+  }
+
+  if (!amount || amount <= 0) {
+    return res.status(400).json({ message: "Invalid compensation amount" });
+  }
+
+  try {
+    if (!pool.connected) await pool.connect();
+
+    await pool.request()
+      .input("TransactionID", sql.Int, transactionID)
+      .input("Compensation_Amount", sql.Money, amount)
+      .input("Reason", sql.NVarChar(255), reason || null)
+      .input("CreatedBy", sql.Int, staffId)
+      .execute("sp_AddCompensation");
+
+    return res.status(200).json({
+      message: "Compensation added successfully",
+      transactionID,
+      amount,
+      createdBy: staffId
+    });
+
+  } catch (err) {
+    console.error("❌ addCompensation error:", err);
+    return res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getCompensations = async (req, res) => {
+  const { transactionID } = req.params;
+
+  try {
+    if (!pool.connected) await pool.connect();
+
+    const result = await pool.request()
+      .input("TransactionID", sql.Int, transactionID)
+      .execute("sp_GetCompensationsByTransaction");
+
+    res.json(result.recordset);
+
+  } catch (err) {
+    console.error("❌ getCompensations error:", err);
+    res.status(500).json({ message: err.message });
   }
 };
