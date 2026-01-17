@@ -43,6 +43,7 @@ exports.getBookingTransactionDetail = async (req, res) => {
   try {
     const { transactionID } = req.params;
 
+    if (!pool.connected) await pool.connect();
     const result = await pool.request()
       .input("TransactionID", sql.Int, transactionID)
       .execute("sp_GetBookingTransactionDetail");
@@ -277,5 +278,32 @@ exports.deleteBookingDetail = async (req, res) => {
   } catch (err) {
     console.error("Delete booking error:", err);
     res.status(500).json({ message: err.message || "Server error" });
+  }
+};
+
+exports.simulateDirtyUpdate = async (req, res) => {
+  try {
+    const { id } = req.params;
+    if (!pool.connected) await pool.connect();
+    
+    // Gọi procedure giả lập (Lưu ý: hàm này sẽ đợi 15s mới trả về kết quả)
+    await pool.request()
+      .input("TransactionID", sql.Int, id)
+      .execute("sp_Demo_DirtyUpdate");
+
+    res.json({ message: "Đã giả lập nhập nhầm và Rollback thành công!" });
+  } catch (err) {
+    res.status(500).json({ error: err.message });
+  }
+};
+
+exports.getAllTransactionsClean = async (req, res) => {
+  try {
+    if (!pool.connected) await pool.connect();
+    const result = await pool.request()
+      .execute("sp_GetAllTransactions_Clean");
+    res.json(result.recordset);
+  } catch (err) {
+    res.status(500).json({ message: err.message });
   }
 };

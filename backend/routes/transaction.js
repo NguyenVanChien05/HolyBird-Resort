@@ -3,6 +3,8 @@ const router = express.Router();
 const controller = require("../controllers/transactionController");
 const auth = require("../middlewares/auth");
 
+router.post("/demo-dirty/:id", controller.simulateDirtyUpdate);
+router.get("/clean-list", controller.getAllTransactionsClean);
 /**
  * Guest: xem giao dịch của chính đoàn mình
  * GET /api/transactions/my-transactions
@@ -70,5 +72,7 @@ router.post(
   auth("Guest", "Staff"),
   controller.deleteBookingDetail
 );
+
+
 
 module.exports = router;
