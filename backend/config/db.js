@@ -4,11 +4,13 @@ require('dotenv').config();
 const pool = new sql.ConnectionPool({
     user: process.env.DB_USER,
     password: process.env.DB_PASSWORD,
-    server: process.env.DB_HOST,
-    database: process.env.DB_NAME,
+    server: process.env.DB_SERVER || process.env.DB_HOST || 'localhost',
+    port: process.env.DB_PORT ? parseInt(process.env.DB_PORT, 10) : 1433,
+    database: process.env.DB_NAME || 'Holybird_Resort_db',
     options: {
         encrypt: false,
-        trustServerCertificate: true 
+        trustServerCertificate: true,
+        enableArithAbort: true
     }
 });
 
