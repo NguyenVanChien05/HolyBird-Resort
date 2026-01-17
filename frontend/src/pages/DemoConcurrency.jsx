@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import './DemoConcurrency.css';
+import '../styles/DemoConcurrency.css';
 
 const DemoConcurrency = () => {
     const [transactionId, setTransactionId] = useState(1);
