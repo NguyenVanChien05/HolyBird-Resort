@@ -46,6 +46,15 @@ router.post(
   controller.assignGuestToRoom
 );
 
+router.post("/:transactionID/compensation", auth("Staff"), controller.addCompensation);
+
+router.get(
+  "/:transactionID/compensations",
+  auth("Guest", "Staff"),
+  controller.getCompensations
+);
+
+
 router.post(
   "/delete-empty-booked-rooms",
   controller.deleteEmptyBookedRooms
