@@ -1,0 +1,216 @@
+/* ===== General page styling ===== */
+.transaction-detail-page {
+  padding: 30px 40px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #0369a1);
+  min-height: 100vh;
+  color: #5a3e36;
+  
+}
+
+.transaction-detail-page h1 {
+  text-align: center;
+  color: #a0522d;
+  font-size: 2.2rem;
+  margin-bottom: 30px;
+}
+
+.transaction-detail-page h2 {
+  color: #8b4513;
+  margin: 25px 0 15px 0;
+  font-size: 1.5rem;
+  border-bottom: 2px solid #f4a261;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* ===== Tables ===== */
+.transaction-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff5e6;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  border-radius: 6px;
+  overflow: hidden;
+  margin-bottom: 20px;
+  
+}
+
+.transaction-table th {
+  background: #f4a261;
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 15px;
+}
+
+.transaction-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e0c097;
+  vertical-align: middle;
+  color: #5a3e36;
+  
+}
+
+.transaction-table tr:last-child td {
+  border-bottom: none;
+}
+
+.transaction-table tbody tr:hover {
+  background-color: #ffe5cc;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* ===== Buttons ===== */
+.transaction-buttons {
+  margin-top: 30px;
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+}
+
+.transaction-buttons button {
+  padding: 12px 25px;
+  font-size: 1rem;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #fff;
+}
+
+.transaction-buttons button.add-detail-btn {
+  background-color: #e76f51;
+}
+
+.transaction-buttons button.add-detail-btn:hover {
+  background-color: #d45d3f;
+}
+
+.transaction-buttons button.assign-guests-btn {
+  background-color: #f4a261;
+}
+
+.transaction-buttons button.assign-guests-btn:hover {
+  background-color: #e18f50;
+}
+
+
+/* ===== Buttons inside table ===== */
+.transaction-table button {
+  padding: 3px 10px;        /* padding đều, giúp nút cùng chiều cao */
+  font-size: 14px;           /* font-size chuẩn */
+  font-weight: 500;
+  border: 1px solid #ccc;    /* viền mỏng, màu xám nhạt */
+  border-radius: 10px;       /* bo góc rõ */
+  cursor: pointer;
+  transition: all 0.2s ease;
+  color: #fff;
+  min-width: 90px;           /* chiều rộng tối thiểu để nút đều nhau */
+  text-align: center;
+  margin-right: 5px;         /* khoảng cách giữa các nút */
+}
+
+/* Check In - xanh dương */
+.transaction-table .checkin-btn {
+  background-color: #3b82f6;
+  border-color: #3b82f6;
+}
+
+.transaction-table .checkin-btn:hover {
+  background-color: #2563eb;
+  border-color: #2563eb;
+}
+
+/* Check Out - xanh lá */
+.transaction-table .checkout-btn {
+  background-color: #10b981;
+  border-color: #10b981;
+}
+
+.transaction-table .checkout-btn:hover {
+  background-color: #059669;
+  border-color: #059669;
+}
+
+/* Delete - đỏ */
+.transaction-table .delete-btn {
+  background-color: #ef4444;
+  border-color: #ef4444;
+}
+
+.transaction-table .delete-btn:hover {
+  background-color: #dc2626;
+  border-color: #dc2626;
+}
+
+
+/* ===== Responsive table ===== */
+@media (max-width: 1024px) {
+  .transaction-table th, .transaction-table td {
+    padding: 10px 8px;
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .transaction-detail-page {
+    padding: 20px 15px;
+  }
+
+  .transaction-table th, .transaction-table td {
+    padding: 8px 6px;
+    font-size: 0.9rem;
+  }
+
+  .transaction-buttons {
+    flex-direction: column;
+  }
+
+  .transaction-buttons button {
+    width: 100%;
+  }
+}
+
+/* ===== Loading/Error ===== */
+.loading-text,
+.error-text {
+  text-align: center;
+  font-size: 1.2rem;
+  margin-top: 50px;
+}
+
+.error-text {
+  color: #c0392b;
+}
+
+
+/* transactionDetail.css */
+.status-label {
+  font-size: 12px;
+  font-weight: bold;
+  padding: 4px 6px;
+  border-radius: 4px;
+  display: inline-block;
+  text-align: center;
+  min-width: 70px; 
+  white-space: nowrap;
+  text-align: center; /* căn giữa tất cả ô */
+  vertical-align: middle;
+}
+
+.status-checkedout {
+  color: rgb(255, 255, 255);
+  background-color: rgb(64, 21, 162);
+}
+
+.status-checkedin {
+  color: rgb(0, 0, 0);
+  background-color: rgb(0, 255, 17);
+}
+
+.status-booked {
+  color: black;
+  background-color: #f0f0f0;
+}

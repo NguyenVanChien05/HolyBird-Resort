@@ -1,0 +1,124 @@
+/* ===== Page ===== */
+.staff-page {
+  padding: 30px 40px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #0369a1);
+  min-height: 100vh;
+  color: #5a3e36;
+}
+
+.staff-page h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #f4a261;
+  text-align: center;
+  border-bottom: 2px solid #e76f51;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* ===== Search & Filter ===== */
+.staff-controls {
+  display: flex;
+  gap: 15px;
+  flex-wrap: wrap;
+  margin-bottom: 20px;
+  background-color: rgba(255, 229, 204, 0.9);
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.staff-controls input,
+.staff-controls select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0c097;
+  font-size: 1rem;
+  color: #5a3e36;
+  flex: 1;
+  outline: none;
+  transition: all 0.2s ease-in-out;
+}
+
+.staff-controls input:focus,
+.staff-controls select:focus {
+  border-color: #f4a261;
+  box-shadow: 0 0 5px rgba(244,162,97,0.5);
+}
+
+/* ===== Table ===== */
+.staff-table-container {
+  overflow-x: auto;
+}
+
+.staff-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff5e6;
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.staff-table th {
+  background: #f4a261;
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 15px;
+}
+
+.staff-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e0c097;
+  color: #5a3e36;
+}
+
+.staff-table tr:last-child td {
+  border-bottom: none;
+}
+
+.staff-table tbody tr:hover {
+  background-color: #ffe5cc;
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* ===== No data ===== */
+.no-data {
+  text-align: center;
+  padding: 20px;
+  color: #d45d3f;
+  font-weight: 600;
+}
+
+/* ===== Loading text ===== */
+.loading-text {
+  text-align: center;
+  font-size: 1.1rem;
+  color: #f4a261;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .staff-controls {
+    flex-direction: column;
+  }
+
+  .staff-controls input,
+  .staff-controls select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .staff-page {
+    padding: 20px 15px;
+  }
+
+  .staff-table th,
+  .staff-table td {
+    padding: 8px 6px;
+    font-size: 0.9rem;
+  }
+}

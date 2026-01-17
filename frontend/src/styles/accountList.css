@@ -1,0 +1,142 @@
+/* ===== Page ===== */
+.accounts-page {
+  padding: 30px 40px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #0369a1);
+  min-height: 100vh;
+  color: #5a3e36; /* text chính */
+}
+
+.accounts-page h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #a0522d;
+  text-align: center;
+  border-bottom: 2px solid #f4a261;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* ===== Controls (search + filter + button) ===== */
+.accounts-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+  padding: 15px;
+  background-color: #fff5e6; /* sáng nhưng đủ contrast */
+  border-radius: 8px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.accounts-controls input,
+.accounts-controls select {
+  padding: 8px 12px;
+  border-radius: 6px;
+  border: 1px solid #e0c097;
+  font-size: 1rem;
+  color: #5a3e36;
+  flex: 1;
+}
+
+.accounts-controls button.btn-primary {
+  background-color: #e76f51;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 10px 18px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease-in-out;
+}
+
+.accounts-controls button.btn-primary:hover {
+  background-color: #d45d3f;
+}
+
+/* ===== Table Container ===== */
+.account-table-container {
+  overflow-x: auto;
+}
+
+/* ===== Table ===== */
+.account-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #ffe5cc; /* sáng ấm */
+  border-radius: 6px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.account-table th {
+  background: #f4a261; /* header nổi bật */
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 15px;
+}
+
+.account-table td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e0c097;
+  color: #5a3e36; /* chữ tối */
+}
+
+.account-table tr:last-child td {
+  border-bottom: none;
+}
+
+.account-table tbody tr:hover {
+  background-color: #fff2e0; /* hover dịu mắt, sáng nhưng khác nền chính */
+  transition: background-color 0.2s ease-in-out;
+}
+
+/* ===== Badges ===== */
+.account-table .badge {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  text-align: center;
+}
+
+.account-table .badge.Admin {
+  background-color: #e76f51;
+}
+
+.account-table .badge.Staff {
+  background-color: #f4a261;
+  color: #333;
+}
+
+.account-table .badge.Guest {
+  background-color: #fcbf49;
+  color: #333;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .accounts-controls {
+    flex-direction: column;
+  }
+
+  .accounts-controls input,
+  .accounts-controls select {
+    width: 100%;
+  }
+}
+
+@media (max-width: 768px) {
+  .accounts-page {
+    padding: 20px 15px;
+  }
+
+  .account-table th,
+  .account-table td {
+    padding: 8px 6px;
+    font-size: 0.9rem;
+  }
+}

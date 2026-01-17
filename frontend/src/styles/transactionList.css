@@ -1,0 +1,103 @@
+/* ===== Page ===== */
+.transaction-list-page {
+  padding: 30px 40px;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #0369a1);
+  min-height: 100vh;
+  color: #5a3e36;
+}
+
+.transaction-list-page h2 {
+  font-size: 2rem;
+  margin-bottom: 25px;
+  color: #a0522d;
+  text-align: center;
+  border-bottom: 2px solid #f4a261;
+  display: inline-block;
+  padding-bottom: 5px;
+}
+
+/* ===== Table ===== */
+.transaction-list-page table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff5e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.transaction-list-page th {
+  background: #f4a261;
+  color: #fff;
+  font-weight: 600;
+  text-align: left;
+  padding: 12px 15px;
+}
+
+.transaction-list-page td {
+  padding: 10px 12px;
+  border-bottom: 1px solid #e0c097;
+  color: #5a3e36;
+}
+
+.transaction-list-page tbody tr:last-child td {
+  border-bottom: none;
+}
+
+.transaction-list-page tbody tr.clickable {
+  cursor: pointer;
+  transition: background-color 0.2s ease-in-out;
+}
+
+.transaction-list-page tbody tr.clickable:hover {
+  background-color: #ffe5cc;
+}
+
+/* ===== Badge Status ===== */
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #0800ff;
+  text-align: center;
+  min-width: 70px;
+}
+
+.badge.booked {
+  background-color: #e76f51;
+}
+
+.badge.checkedin {
+  background-color: #2a9d8f;
+}
+
+.badge.cancelled {
+  background-color: #8d99ae;
+}
+
+.badge.completed {
+  background-color: #f4a261;
+}
+
+/* ===== Responsive ===== */
+@media (max-width: 1024px) {
+  .transaction-list-page table,
+  .transaction-list-page th,
+  .transaction-list-page td {
+    font-size: 0.95rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .transaction-list-page {
+    padding: 20px 15px;
+  }
+
+  .transaction-list-page th,
+  .transaction-list-page td {
+    padding: 8px 6px;
+  }
+}
