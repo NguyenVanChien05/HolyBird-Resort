@@ -291,7 +291,6 @@ exports.deleteBookingDetail = async (req, res) => {
   }
 };
 
-<<<<<<< HEAD
 exports.addCompensation = async (req, res) => {
   const { transactionID } = req.params;
   const { staffId, role } = req.user;
@@ -348,7 +347,7 @@ exports.getCompensations = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
-=======
+
 exports.simulateDirtyUpdate = async (req, res) => {
   try {
     const { id } = req.params;
@@ -375,4 +374,3 @@ exports.getAllTransactionsClean = async (req, res) => {
     res.status(500).json({ message: err.message });
   }
 };
->>>>>>> feature/DirtyRead
