@@ -58,4 +58,5 @@ export const simulateDirtyUpdate = (id) => api.post(`/demo-dirty/${id}`);
 
 export const getAllTransactionsClean = () => api.get("/clean-list");
 
+
 export default api;
