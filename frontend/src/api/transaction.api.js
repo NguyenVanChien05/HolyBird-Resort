@@ -53,11 +53,9 @@ export const checkOutDetail = (detailID) =>
 export const deleteBookingDetail = (detailID) =>
   api.post(`/${detailID}/delete`);
 
-<<<<<<< HEAD
-=======
+
 export const simulateDirtyUpdate = (id) => api.post(`/demo-dirty/${id}`);
 
 export const getAllTransactionsClean = () => api.get("/clean-list");
->>>>>>> feature/DirtyRead
 
 export default api;
