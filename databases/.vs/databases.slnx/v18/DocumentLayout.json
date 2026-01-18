@@ -1,0 +1,40 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\PC\\Downloads\\HolyBird-Resort\\databases\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\PC\\Downloads\\HolyBird-Resort\\databases\\db.sql||{B5A506EB-11BE-4782-9A18-21265C2CA0B4}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:db.sql||{B5A506EB-11BE-4782-9A18-21265C2CA0B4}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 1,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3eb44d79-dda1-4580-b810-0808975173e4}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "db.sql - LAPTOP-2U02M5Q0.Holybird_Resort (sa (51))",
+              "DocumentMoniker": "C:\\Users\\PC\\Downloads\\HolyBird-Resort\\databases\\db.sql",
+              "RelativeDocumentMoniker": "db.sql",
+              "ToolTip": "C:\\Users\\PC\\Downloads\\HolyBird-Resort\\databases\\db.sql - LAPTOP-2U02M5Q0.Holybird_Resort (sa (51))",
+              "RelativeToolTip": "db.sql - LAPTOP-2U02M5Q0.Holybird_Resort (sa (51))",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000826|",
+              "WhenOpened": "2026-01-16T08:12:39.702Z",
+              "EditorCaption": " - LAPTOP-2U02M5Q0.Holybird_Resort (sa (51))"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
